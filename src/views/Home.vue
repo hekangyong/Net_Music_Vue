@@ -1,18 +1,48 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <index/>
+    <el-button type="primary" @click="logout">logout</el-button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import index from "@/components/index.vue";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'home',
+  name: "home",
+  data() {
+    return {
+      apiurl: "",
+      todos: null
+    };
+  },
+
   components: {
-    HelloWorld
+    index
+  },
+  computed: {
+    ...mapGetters(["getApiUrl"])
+  },
+  methods: {
+    logout: function() {
+      this.$req("logout")
+        .then(result => {
+          if (result.data.code === 200) {
+            this.$store.commit("SaveUserInfor", {})
+            this.$store.commit("loginStatus", {}, false)
+            this.$router.push("/login");
+          }
+        })
+        .catch(err => {
+          throw err;
+        });
+    }
   }
-}
+};
 </script>
+
+<style lang="scss" scoped>
+
+</style>
