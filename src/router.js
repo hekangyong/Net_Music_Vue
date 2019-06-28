@@ -11,7 +11,7 @@ let router = new Router({
 		{
 			path: '/',
 			name: 'home',
-			component: Home
+			component: Home,
 		},
 		{
 			path: '/about',
@@ -28,9 +28,28 @@ let router = new Router({
 			// this generates a separate chunk (about.[hash].js) for this route
 			// which is lazy-loaded when the route is visited.
 			component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
+		},
+		{
+			path: '/songlistdetail',
+			name: 'songlistdetail',
+			// route level code-splitting
+			// this generates a separate chunk (about.[hash].js) for this route
+			// which is lazy-loaded when the route is visited.
+			component: () => import(/* webpackChunkName: "about" */ './views/SongListDetail.vue')
 		}
 	],
 
+})
+
+router.beforeEach((to, from, next) => {
+	let loginStatus = localStorage.getItem('Status');
+	if (loginStatus == 'true') {
+		next(vm => {
+			vm.$store.commit('loginStatusInfo', true);
+		});
+	} else {
+		next();
+	}
 })
 
 export default router

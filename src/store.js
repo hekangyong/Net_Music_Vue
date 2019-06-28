@@ -6,27 +6,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		// apiUrl: "http://localhost:4000/",
-		daUser: {},
-		userinfor: {},
 		loginstatus: false,
 		X_id: '',
 	},
 	getters: {
+		loginStatus(state){
+			return state.loginstatus;
+		},
 	},
 	mutations: {
-		SaveUserInfor: (state, Infor) => {
-			state.userinfor = Infor
-		},
-		changeLoginStatus(state, status) {
-			state.loginstatus = status
-		},
-		changeUser: (state, Infor) => {
-			state.X_id = Infor
-		},
-		loginStatus: (state, Infor, status) => {
-			state.daUser = Infor;
+		loginStatusInfo: (state, status) => {
 			state.loginstatus = status;
-		}
+		},
 	},
 	actions: {}
 })

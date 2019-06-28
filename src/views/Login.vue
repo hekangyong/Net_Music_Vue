@@ -42,10 +42,9 @@ export default {
       })
         .then(result => {
           if (result.data.code === 200) {
-            localStorage.setItem("X_uid", this.uid);
-            this.$store.commit("changeUser", this.uid);
-            this.$store.commit("SaveUserInfor", result.data.profile);
-            this.$store.commit("changeLoginStatus", true);
+            localStorage.setItem("Status", true);
+            this.$store.commit("loginStatus", result.data.profile, true);
+            this.$store.commit("loginStatusInfo", true)
             this.$router.push({ name: "home" });
           }
         })

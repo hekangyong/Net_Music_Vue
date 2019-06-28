@@ -2,11 +2,11 @@
   <div id="app">
     <navs/>
     <div class="item_content">
-      <div id="nav">
+      <!-- <div id="nav" :userinfos="userinfo">
         <router-link to="/">Home</router-link>|
         <router-link to="/about">About</router-link>|
         <router-link to="/login">login</router-link>
-      </div>
+      </div> -->
       <router-view/>
     </div>
   </div>
@@ -20,7 +20,8 @@ export default {
   data() {
     return {
       apiurl: "",
-      todos: null
+      todos: null,
+      userinfo: [],
     };
   },
   components: {
@@ -29,20 +30,8 @@ export default {
   created() {
     this.loginStatus();
   },
-  computed: {
-    ...mapGetters(["getApiUrl"])
-  },
   methods: {
     loginStatus: function() {
-      this.$req("login/status")
-        .then(result => {
-          if (result.data.code === 200) {
-            this.$store.commit("loginStatus", result, true);
-          }
-        })
-        .catch(err => {
-          throw err;
-        });
     }
   }
 };
@@ -51,11 +40,9 @@ export default {
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height: 100%;
+  width: 100%;
 }
 #nav {
   padding: 30px;
@@ -73,12 +60,18 @@ export default {
   max-width: 1200px;
   margin: auto;
 }
-html,body {
+html,
+body {
   margin: 0px;
   height: 100%;
+  background-color: #0c102d;
+  font-family: "daxline" !important;
+  color: #fff;
 }
 .item_content {
   float: left;
-  width: clac(100% - 320px);
+  min-width: clac(100% - 420px);
+  width: calc(100% - 492px);
+  margin-left: 430px;
 }
 </style>
