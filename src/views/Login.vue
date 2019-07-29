@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default {
   name: "login",
   data() {
@@ -31,9 +30,6 @@ export default {
     };
   },
   created() {},
-  computed: {
-    ...mapGetters(["getApiUrl"])
-  },
   methods: {
     onSubmit() {
       this.$req("login/cellphone", {
@@ -45,7 +41,7 @@ export default {
             localStorage.setItem("Status", true);
             this.$store.commit("loginStatus", result.data.profile, true);
             this.$store.commit("loginStatusInfo", true)
-            this.$router.push({ name: "home" });
+            this.$router.push({ path: 'home' });
           }
         })
         .catch(err => {

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import dailysonglist from './views/DailySongList.vue'
+import songlistdetail from './views/SongListDetail.vue'
 
 Vue.use(Router)
 
@@ -33,9 +35,20 @@ let router = new Router({
 			path: '/songlistdetail',
 			name: 'songlistdetail',
 			// route level code-splitting
-			// this generates a separate chunk (about.[hash].js) for this route
+			// this generates a separate chunk (songlistdetail.[hash].js) for this route
 			// which is lazy-loaded when the route is visited.
-			component: () => import(/* webpackChunkName: "about" */ './views/SongListDetail.vue')
+			component: () => import(/* webpackChunkName: "songlistdetail" */ './views/SongListDetail.vue'),
+		},
+		{
+			path: '/dailysonglist',
+			name: 'dailysonglist',
+			component: dailysonglist,
+			children:[
+				{
+					path: 'listdetail',
+					component: songlistdetail
+				}
+			]
 		}
 	],
 

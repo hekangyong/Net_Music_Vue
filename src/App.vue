@@ -1,38 +1,36 @@
 <template>
   <div id="app">
-    <navs/>
+    <navs />
     <div class="item_content">
-      <!-- <div id="nav" :userinfos="userinfo">
-        <router-link to="/">Home</router-link>|
-        <router-link to="/about">About</router-link>|
-        <router-link to="/login">login</router-link>
-      </div> -->
-      <router-view/>
+      <router-view />
+    </div>
+    <div class="footer">
+      <bottomRadio class="bottom" />
     </div>
   </div>
 </template>
 
 <script>
 import navs from "./views/nav";
-import { mapGetters } from "vuex";
+import bottomRadio from "./views/BottomRadio";
 
 export default {
   data() {
     return {
       apiurl: "",
       todos: null,
-      userinfo: [],
+      userinfo: []
     };
   },
   components: {
-    navs
+    navs,
+    bottomRadio
   },
   created() {
     this.loginStatus();
   },
   methods: {
-    loginStatus: function() {
-    }
+    loginStatus: function() {}
   }
 };
 </script>
@@ -70,8 +68,15 @@ body {
 }
 .item_content {
   float: left;
-  min-width: clac(100% - 420px);
-  width: calc(100% - 492px);
-  margin-left: 430px;
+  min-width: calc(100% - 420px);
+  margin-left: 340px;
+}
+.bottom {
+  position: fixed;
+  bottom: -90px;
+  text-align: center;
+}
+.bottom:hover {
+  bottom: 0px;
 }
 </style>

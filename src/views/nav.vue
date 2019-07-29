@@ -8,9 +8,12 @@
     <div class="nav-all">
       <div class="recommend">
         <ul class="net-ul-brand">
-          <li class="net-link active">
+          <!-- <li class="net-link active">
             <i class="net-link-icon el-icon-bangzhu"></i> Discover music
-          </li>
+          </li>-->
+          <router-link tag="li" class="net-link" :to="{path: '/dailysonglist'}" replace>
+            <i class="net-link-icon el-icon-bangzhu"></i> Discover music
+          </router-link>
           <li class="net-link">
             <i class="net-link-icon el-icon-discover"></i> Private FM
           </li>
@@ -67,8 +70,6 @@ export default {
     };
   },
 
-  props: ["userinfos"],
-
   created() {
     this.getsongsList();
   },
@@ -105,9 +106,10 @@ export default {
       }
     },
     pushsongslist(val) {
-      let listid = val.getAttribute('data-SongListId');
-      this.$router.push({ path: 'songlistdetail', query: { id: listid } });
-      window.location.reload()
+      let listid = val.getAttribute("data-SongListId");
+      this.resetSetItem("songID", listid);
+      this.$store.commit("changesongsId", listid);
+      this.$router.push({ path: "songlistdetail", query: { id: listid } });
     }
   }
 };
@@ -139,6 +141,10 @@ export default {
   li {
     list-style: none;
     color: #ffff;
+  }
+  .router-link-active {
+    color: #fb0036;
+    border-right: 2px solid rgba(251, 0, 54, 0.8) !important;
   }
   .active {
     color: #fb0036;

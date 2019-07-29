@@ -7,8 +7,15 @@
 
 @font-face {
     font-family: 'quantum';
-    src: url(./Quantum-Bold-2.otf)format("otf"),
+    src: url(./Quantum-Bold-2.otf) format("otf"),
     url(./Quantum-Bold-3.ttf)format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'HYZIKUTANG';
+    src: url(./HYZiKuTangChangLinTiW-2.ttf) format("truetype");
     font-weight: normal;
     font-style: normal;
 }
