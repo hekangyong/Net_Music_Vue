@@ -73,10 +73,10 @@ body {
 }
 .bottom {
   position: fixed;
-  bottom: -90px;
+  bottom: 0;
   text-align: center;
 }
-.bottom:hover {
+/* .bottom:hover {
   bottom: 0px;
-}
+} */
 </style>

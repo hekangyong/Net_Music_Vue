@@ -8,8 +8,8 @@
         @click="dailysong($event.currentTarget)"
         v-bind:data-SongListId="songlist.id"
       >
-          <div class="card-img">
-            <img :src="songlist.picUrl" class="songlist-img" alt />
+          <div class="card-img"> 
+            <img v-lazy="songlist.picUrl" class="songlist-img" alt />
           </div>
           <div class="card-content">
             <p class="card-content-p">{{ songlist.name }}</p>
@@ -43,7 +43,7 @@ export default {
       let songid = val.getAttribute("data-SongListId");
       this.resetSetItem("songID", songid);
       this.$store.commit("changesongsId", songid);
-      this.$router.push({ path: "listdetail", query: { id: songid } });
+      this.$router.push({ path: "dailysonglist/listdetail", query: { id: songid } });
     }
   }
 };
@@ -55,12 +55,13 @@ export default {
   margin-left: 50px;
   margin-top: 30px;
   .card-img {
-    width: 230px;
     height: 230px;
     overflow: hidden;
-  }
+    display: flex;
+    justify-content: center;
+}
   .songlist-img {
-    width: 100%;
+    height: 230px;
   }
   .card-content-p {
     overflow: hidden;

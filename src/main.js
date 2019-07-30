@@ -6,6 +6,7 @@ import axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/fonts/font.css'
+import VueLazyLoad from 'vue-lazyload'
 
 const apiUrl = "http://localhost:4000/"
 
@@ -43,6 +44,15 @@ let loginStatus = axios.get(apiUrl + 'login/status')
     throw err
   })
 Vue.use(ElementUI);
+
+
+Vue.use(VueLazyLoad, {
+  preLoad: 1.3,
+  loading: require('./assets/images/orb.gif'),
+  error: './assets/images/orb.gif',
+  attempt: 1
+})
+
 new Vue({
   router,
   store,
