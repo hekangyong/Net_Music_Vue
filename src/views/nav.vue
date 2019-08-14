@@ -12,7 +12,7 @@
             <i class="net-link-icon el-icon-bangzhu"></i> Discover music
           </li>-->
           <router-link tag="li" class="net-link" :to="{path: '/dailysonglist'}" replace>
-            <i class="net-link-icon el-icon-bangzhu"></i> Discover music
+            <i class="net-link-icon el-icon-bangzhu"></i> Daily Song Lists
           </router-link>
           <li class="net-link">
             <i class="net-link-icon el-icon-discover"></i> Private FM
@@ -109,7 +109,7 @@ export default {
       let listid = val.getAttribute("data-SongListId");
       this.resetSetItem("songID", listid);
       this.$store.commit("changesongsId", listid);
-      this.$router.push({ path: "songlistdetail", query: { id: listid } });
+      this.$router.push({ path: "/songlistdetail", query: { id: listid } });
     }
   }
 };

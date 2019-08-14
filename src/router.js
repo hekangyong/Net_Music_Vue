@@ -47,6 +47,7 @@ let router = new Router({
 			children:[
 				{
 					path: 'listdetail:id',
+					name: 'dail_songlistdetail',
 					component: songlistdetail
 				}
 			]

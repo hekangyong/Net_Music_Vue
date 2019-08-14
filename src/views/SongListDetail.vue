@@ -1,19 +1,17 @@
 <template>
   <div class="songlistdetail">
     <div class="listsong">
-      <img :src="playlist.coverImgUrl" alt />
+      <img v-lazy="playlist.coverImgUrl" alt />
       <div class="songcontent">
         <h2>{{ playlist.name }}</h2>
         <div class="user">
-          <img :src="userInfo.avatarUrl" alt class="user-img" />
+          <img v-lazy="userInfo.avatarUrl" alt class="user-img" />
           <p class="username-span">{{userInfo.nickname}}</p>
         </div>
         <p
           class="description_p"
         >简介：{{ (playlist.description == "" || playlist.description == null)? "这人很懒什么都没有留下...": playlist.description }}</p>
-        <div class="songList">
-          <!-- <span v-for="(tag.index) in playlist" :key="index">{{ playlist. }}</span> -->
-        </div>
+        <a class="start_all">播放全部</a>
       </div>
     </div>
     <ul class="songsitem">
@@ -38,9 +36,13 @@
         </div>
       </li>
     </ul>
+    <div v-show="loading" class="loadingShow">
+      <loading></loading>
+    </div>
   </div>
 </template>
 <script>
+import loading from "../components/loading";
 export default {
   name: "songlistdetail",
   data() {
@@ -48,12 +50,14 @@ export default {
       listdetail: [],
       playlist: [],
       userInfo: [],
-      listId: null
+      listId: null,
+      loading: true,
     };
   },
   created() {
     window.addEventListener("setItem", () => {
       this.newVal = sessionStorage.getItem("songID");
+      this.loading = true;
       this.getlistdetail();
     });
     this.getlistdetail();
@@ -86,25 +90,30 @@ export default {
         })
         .catch(err => {
           throw err;
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
-    getAudioUrl(val){
-      let songsId = val.getAttribute('data-songlistid');
+    getAudioUrl(val) {
+      let songsId = val.getAttribute("data-songlistid");
       let musicUrl;
-      let audio = document.querySelector('#music-audio')
-       this.$req('song/url', { id: songsId })
-          .then(result => {
-            if (result.data.code === 200) {
-              // this.songsList = result.data;
-              musicUrl = result.data.data[0].url;
-              audio.setAttribute('src', musicUrl)
-            }
-          })
-          .catch(err => {
-            throw err;
-          });
+      let audio = document.querySelector("#music-audio");
+      this.$req("song/url", { id: songsId })
+        .then(result => {
+          if (result.data.code === 200) {
+            // this.songsList = result.data;
+            musicUrl = result.data.data[0].url;
+            audio.setAttribute("src", musicUrl);
+          }
+        })
+        .catch(err => {
+          throw err;
+        });
     }
-    
+  },
+  components: {
+    loading
   }
 };
 </script>
@@ -133,7 +142,7 @@ export default {
   float: left;
 }
 .songlistdetail {
-  padding: 60px 0;
+  padding: 60px 30px;
   .listsong {
     display: flex;
 
@@ -205,6 +214,29 @@ export default {
         }
       }
     }
+  }
+}
+.loadingShow {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+.start_all{
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  color: #fff;
+  background-color: #e9234e;
+  padding: 8px 40px;
+  border-radius: 50px;
+  transition: all 0.3s;
+  border: 1px solid #e9234e;
+  cursor: pointer;
+  &:hover{
+    border: 1px solid #e9234e;
+    background-color: transparent;
+    color: #e9234e
   }
 }
 </style>
