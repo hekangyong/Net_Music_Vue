@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/fonts/font.css'
 import VueLazyLoad from 'vue-lazyload'
 
-const apiUrl = "http://localhost:4000/"
+const apiUrl = "http://localhost:3000/"
 
 Vue.prototype.axios = axios
 

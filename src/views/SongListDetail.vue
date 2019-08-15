@@ -7,13 +7,13 @@
         <div class="user">
           <img :src="userInfo.avatarUrl" alt class="user-img" />
           <p class="username-span">{{userInfo.nickname}}</p>
+          <div class="start_all" @click="songstartAll">
+            <p>播放全部</p>
+          </div>
         </div>
         <p
           class="description_p"
         >简介：{{ (playlist.description == "" || playlist.description == null)? "这人很懒什么都没有留下...": playlist.description }}</p>
-        <div class="songList">
-          <!-- <span v-for="(tag.index) in playlist" :key="index">{{ playlist. }}</span> -->
-        </div>
       </div>
     </div>
     <ul class="songsitem">
@@ -88,23 +88,29 @@ export default {
           throw err;
         });
     },
-    getAudioUrl(val){
-      let songsId = val.getAttribute('data-songlistid');
+    getAudioUrl(val) {
+      let songsId = val.getAttribute("data-songlistid");
       let musicUrl;
-      let audio = document.querySelector('#music-audio')
-       this.$req('song/url', { id: songsId })
-          .then(result => {
-            if (result.data.code === 200) {
-              // this.songsList = result.data;
-              musicUrl = result.data.data[0].url;
-              audio.setAttribute('src', musicUrl)
-            }
-          })
-          .catch(err => {
-            throw err;
-          });
+      let audio = document.querySelector("#music-audio");
+      this.$req("song/url", { id: songsId })
+        .then(result => {
+          if (result.data.code === 200) {
+            // this.songsList = result.data;
+            musicUrl = result.data.data[0].url;
+            audio.setAttribute("src", musicUrl);
+          }
+        })
+        .catch(err => {
+          throw err;
+        });
+    },
+    songstartAll(){
+      let dom = document.querySelectorAll(".songlistLink");
+      dom.forEach((val, key) => {
+        // console.log(val.getAttribute('data-songlistid'))
+        console.log(val.textContent)
+      })
     }
-    
   }
 };
 </script>
@@ -128,6 +134,28 @@ export default {
     margin-bottom: 0px;
     margin-left: 20px;
   }
+
+  .start_all {
+    margin-left: 20px;
+    cursor: pointer;
+    p{
+      font-size: 14px;
+      color: #fff;
+      background-color: #fb0036;
+      border: 1px solid #fb0036;
+      padding: 5px 20px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      transition: all .3s;
+      &:hover{
+        border: 1px solid #fb0036;
+        background-color: transparent;
+        color: #fb0036;
+      }
+    }
+  }
 }
 .float-left {
   float: left;
@@ -139,6 +167,7 @@ export default {
 
     img {
       width: 250px;
+      height: 250px;
     }
     .songcontent {
       margin-left: 50px;

@@ -1,7 +1,7 @@
 <template>
   <div class="bottomradio">
     <div class="radio">
-      <audio id="music-audio" src controls="controls">Your browser does not support the audio tag.</audio>
+      <audio id="music-audio" autoplay="autoplay" src controls="controls">Your browser does not support the audio tag.</audio>
     </div>
   </div>
 </template>

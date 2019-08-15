@@ -35,7 +35,15 @@ export default {
         }
       });
     } else {
-      return;
+      this.$req("top/playlist/highquality").then(result => {
+        if(result.data.code === 200){
+          this.songlist = result.data;
+        }
+      })
+      .catch((err) =>{
+        console.log(err);
+        throw err;
+      })
     }
   },
   methods: {
