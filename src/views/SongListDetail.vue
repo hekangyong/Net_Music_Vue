@@ -1,11 +1,11 @@
 <template>
   <div class="songlistdetail">
     <div class="listsong">
-      <img :src="playlist.coverImgUrl" alt />
+      <img v-lazy="playlist.coverImgUrl" alt />
       <div class="songcontent">
         <h2>{{ playlist.name }}</h2>
         <div class="user">
-          <img :src="userInfo.avatarUrl" alt class="user-img" />
+          <img v-lazy="userInfo.avatarUrl" alt class="user-img" />
           <p class="username-span">{{userInfo.nickname}}</p>
           <div class="start_all" @click="songstartAll">
             <p>播放全部</p>
@@ -38,9 +38,13 @@
         </div>
       </li>
     </ul>
+    <div v-if="loading" class="loadingShow">
+      <loading></loading>
+    </div>
   </div>
 </template>
 <script>
+import loading from "../components/loading";
 export default {
   name: "songlistdetail",
   data() {
@@ -48,12 +52,14 @@ export default {
       listdetail: [],
       playlist: [],
       userInfo: [],
-      listId: null
+      listId: null,
+      loading: true,
     };
   },
   created() {
     window.addEventListener("setItem", () => {
       this.newVal = sessionStorage.getItem("songID");
+      this.loading = true;
       this.getlistdetail();
     });
     this.getlistdetail();
@@ -86,6 +92,9 @@ export default {
         })
         .catch(err => {
           throw err;
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     getAudioUrl(val) {
@@ -106,11 +115,22 @@ export default {
     },
     songstartAll(){
       let dom = document.querySelectorAll(".songlistLink");
+      const allSong = [];
       dom.forEach((val, key) => {
         // console.log(val.getAttribute('data-songlistid'))
-        console.log(val.textContent)
+        // console.log(val.textContent)
+        const song = {
+          "title": val.children[0].children[0].textContent,
+          "songer": val.children[0].children[1].textContent,
+          "id": val.getAttribute('data-songlistid')
+        };
+        allSong.push(song)
       })
+      // ...mapActions([])
     }
+  },
+  components: {
+    loading
   }
 };
 </script>
@@ -161,7 +181,7 @@ export default {
   float: left;
 }
 .songlistdetail {
-  padding: 60px 0;
+  padding: 100px 30px;
   .listsong {
     display: flex;
 
@@ -235,6 +255,12 @@ export default {
       }
     }
   }
+}
+.loadingShow {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 100%;
 }
 </style>
 

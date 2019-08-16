@@ -12,10 +12,10 @@
             <i class="net-link-icon el-icon-bangzhu"></i> Discover music
           </li>-->
           <router-link tag="li" class="net-link" :to="{path: '/dailysonglist'}" replace>
-            <i class="net-link-icon el-icon-bangzhu"></i> Discover music
+            <i class="net-link-icon el-icon-bangzhu"></i> Daily Song Lists
           </router-link>
           <li class="net-link">
-            <i class="net-link-icon el-icon-discover"></i> Private FM
+            <i class="net-link-icon el-icon-discover"></i> Hot Song Lists
           </li>
           <li class="net-link">
             <i class="net-link-icon el-icon-notebook-2"></i> Ranking List
@@ -109,7 +109,7 @@ export default {
       let listid = val.getAttribute("data-SongListId");
       this.resetSetItem("songID", listid);
       this.$store.commit("changesongsId", listid);
-      this.$router.push({ path: "songlistdetail", query: { id: listid } });
+      this.$router.push({ path: "/songlistdetail", query: { id: listid } });
     }
   }
 };
@@ -177,7 +177,7 @@ export default {
 .nav-all {
   margin-top: 20px;
   position: relative;
-  height: calc(100% - 90px);
+  height: calc(100% - 153px);
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 10px;

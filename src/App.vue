@@ -2,6 +2,7 @@
   <div id="app">
     <navs />
     <div class="item_content">
+      <headertab id="head">asd</headertab>
       <router-view />
     </div>
     <div class="footer">
@@ -13,6 +14,7 @@
 <script>
 import navs from "./views/nav";
 import bottomRadio from "./views/BottomRadio";
+import headertab from "./views/HeaderTab";
 
 export default {
   data() {
@@ -24,7 +26,8 @@ export default {
   },
   components: {
     navs,
-    bottomRadio
+    bottomRadio,
+    headertab
   },
   created() {
     this.loginStatus();
@@ -68,13 +71,23 @@ body {
 }
 .item_content {
   float: left;
-  min-width: calc(100% - 420px);
+  min-width: calc(100% - 342px);
   margin-left: 340px;
+  position: relative;
 }
 .bottom {
   position: fixed;
   bottom: 0;
   text-align: center;
+}
+#head {
+  min-width: calc(100% - 398px);
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  margin-left: -18px;
+  padding: 14px 37px;
+  background-color: rgba(24, 35, 111, .25);
 }
 /* .bottom:hover {
   bottom: 0px;

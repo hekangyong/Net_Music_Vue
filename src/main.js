@@ -36,10 +36,11 @@ Vue.prototype.resetSetItem = function (key, newVal) {
 
 Vue.config.productionTip = false;
 axios.defaults.withCredentials = true;
-let loginStatus = axios.get(apiUrl + 'login/status')
+const loginStatus = axios.get(apiUrl + 'login/status')
   .then((res) => {
     store.commit("loginStatusInfo", true);
-    sessionStorage.setItem('userInfo', JSON.stringify(res.data))
+    store.commit("mutaUserInfo", res.data.profile);
+    sessionStorage.setItem('userInfo', JSON.stringify(res.data));
   }).catch((err) => {
     throw err
   })

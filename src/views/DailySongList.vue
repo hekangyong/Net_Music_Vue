@@ -8,14 +8,15 @@
         @click="dailysong($event.currentTarget)"
         v-bind:data-SongListId="songlist.id"
       >
-          <div class="card-img"> 
-            <img v-lazy="songlist.picUrl" class="songlist-img" alt />
-          </div>
-          <div class="card-content">
-            <p class="card-content-p">{{ songlist.name }}</p>
-          </div>
+        <div class="card-img">
+          <img v-lazy="songlist.picUrl" class="songlist-img" alt />
+        </div>
+        <div class="card-content">
+          <p class="card-content-p">{{ songlist.name }}</p>
+        </div>
       </div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -51,14 +52,28 @@ export default {
       let songid = val.getAttribute("data-SongListId");
       this.resetSetItem("songID", songid);
       this.$store.commit("changesongsId", songid);
-      this.$router.push({ path: "dailysonglist/listdetail", query: { id: songid } });
+      this.$router.push({
+        path: `/dailysonglist/listdetaild?id=${songid}`
+      });
     }
   }
 };
 </script>
 <style lang="scss" scoped>
+.songlistbox {
+  padding: 81px 0 100px;
+  overflow: hidden;
+  position: relative;
+}
+.songlistdetail {
+  position: absolute;
+  top: 0px;
+  background-color: #0c102d;
+  width: 94.5%;;
+}
 .songlist-card {
   float: left;
+  cursor: pointer;
   width: 230px;
   margin-left: 50px;
   margin-top: 30px;
@@ -67,7 +82,7 @@ export default {
     overflow: hidden;
     display: flex;
     justify-content: center;
-}
+  }
   .songlist-img {
     height: 230px;
   }

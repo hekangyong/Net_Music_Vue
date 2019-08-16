@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import dailysonglist from './views/DailySongList.vue'
 import songlistdetail from './views/SongListDetail.vue'
+import homepage from './views/HomePage.vue'
 import test from './views/test.vue'
 
 Vue.use(Router)
@@ -47,9 +48,15 @@ let router = new Router({
 			children:[
 				{
 					path: 'listdetail:id',
+					name: 'dail_songlistdetail',
 					component: songlistdetail
 				}
 			]
+		},
+		{
+			path: '/myhomepage',
+			name: 'homepage',
+			component: homepage
 		}
 	],
 

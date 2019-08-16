@@ -5,10 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
-		// apiUrl: "http://localhost:4000/",
 		loginstatus: false,
-		X_id: '',
 		songslsitDetailId: null,
+		startSongsList: [],
+		startStatus: false,
+		userInfo: []
 	},
 	getters: {
 		loginStatus(state) {
@@ -16,6 +17,12 @@ export default new Vuex.Store({
 		},
 		songsid(state){
 			return state.songslsitDetailId;
+		},
+		getSongList(state){
+			return state.startSongsList;
+		},
+		getuserinfo(state){
+			return state.userInfo;
 		}
 	},
 	mutations: {
@@ -24,7 +31,21 @@ export default new Vuex.Store({
 		},
 		changesongsId: (state, id) => {
 			state.songslsitDetailId = id;
+		},
+		startSong: (state, data) => {
+			state.startSongsList = data;
+			state.startStatus = true;
+		},
+		mutaUserInfo: (state, data) => {
+			state.userInfo = data;
 		}
 	},
-	actions: {}
+	actions: {
+		actStartSong: (data) => {
+			data.commit(startSong);
+		},
+		searchAction: (data) => {
+			
+		}
+	}
 })
