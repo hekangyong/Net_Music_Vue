@@ -25,7 +25,7 @@
           </li>
         </ul>
       </div>
-      <div class="yourself-songsList">
+      <div class="yourself-songsList" v-if="loginstatuss == true">
         <h3 class="songsList-title">Created song list</h3>
         <ul class="net-ul-brand">
           <li
@@ -53,11 +53,15 @@
           </li>
         </ul>
       </div>
+      <div class="yourself-songsList" v-else-if="loginstatuss == false">
+        <h1 class="noLogin">您当前没有登录</h1>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: "navs",
   data() {
@@ -66,12 +70,17 @@ export default {
       songsList: [],
       creatSongsList: [],
       collectionSongsList: [],
-      loginStatus: false
     };
   },
 
   created() {
     this.getsongsList();
+  },
+
+  computed:{
+    ...mapGetters({
+      loginstatuss: 'loginStatus'
+    })
   },
 
   methods: {
@@ -107,6 +116,16 @@ export default {
     },
     pushsongslist(val) {
       let listid = val.getAttribute("data-SongListId");
+      let vals = document.querySelectorAll(".net-link");
+      let map = new Map();
+      map = vals;
+      for(let value of map.values()){
+        if(value.getAttribute('data-songlistid') === listid){
+          value.className = 'net-link router-link-exact-active router-link-active';
+        }else{
+          value.className = 'net-link'
+        }
+      }
       this.resetSetItem("songID", listid);
       this.$store.commit("changesongsId", listid);
       this.$router.push({ path: "/songlistdetail", query: { id: listid } });
@@ -210,6 +229,13 @@ export default {
     font-size: 17px;
     letter-spacing: 0.5px;
     line-height: 48px;
+  }
+  .noLogin{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: .5px;
+    margin-left: 30px;
   }
 }
 </style>

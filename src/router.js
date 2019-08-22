@@ -69,7 +69,9 @@ router.beforeEach((to, from, next) => {
 			vm.$store.commit('loginStatusInfo', true);
 		});
 	} else {
-		next();
+		next(vm => {
+			vm.$store.commit('loginStatusInfo', false);
+		});
 	}
 })
 

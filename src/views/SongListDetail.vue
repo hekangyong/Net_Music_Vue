@@ -117,8 +117,6 @@ export default {
       let dom = document.querySelectorAll(".songlistLink");
       const allSong = [];
       dom.forEach((val, key) => {
-        // console.log(val.getAttribute('data-songlistid'))
-        // console.log(val.textContent)
         const song = {
           "title": val.children[0].children[0].textContent,
           "songer": val.children[0].children[1].textContent,
@@ -126,6 +124,7 @@ export default {
         };
         allSong.push(song)
       })
+      console.log(allSong)
       // ...mapActions([])
     }
   },

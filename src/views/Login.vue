@@ -42,6 +42,7 @@ export default {
             this.$store.commit("loginStatus", result.data.profile, true);
             this.$store.commit("loginStatusInfo", true)
             this.$router.push({ path: 'home' });
+            window.location.reload;
           }
         })
         .catch(err => {
