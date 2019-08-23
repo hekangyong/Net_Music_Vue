@@ -76,7 +76,8 @@ export default {
       }
     },
     gomyself(val){
-      var id = val.getAttribute("data-id")
+      var id = val.getAttribute("data-id");
+      localStorage.setItem('USERHOMEPAGEID', id)
       this.UserId(id);
       this.myhomePage();
       document.querySelector(".info-box").setAttribute("style", "display: none !important");

@@ -22,7 +22,11 @@ export default new Vuex.Store({
 			return state.songslsitDetailId;
 		},
 		getSongList(state){
-			return state.startSongsList;
+			if(state.startSongsList == null){
+				return false;
+			}else{
+				return state.startSongsList;
+			}
 		},
 		getuserinfo(state){
 			return state.userInfo;
@@ -53,14 +57,12 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
-		actStartSong: (data) => {
-			data.commit(startSong);
-		},
 		searchAction: (data) => {
 
 		},
 		homePageData: (context) => {
-			axios.get("http://localhost:3000/user/detail?uid=" + context.state.userHomeId)
+			let id = localStorage.getItem('USERHOMEPAGEID')
+			axios.get("http://localhost:3000/user/detail?uid=" + id)
 			.then(res => {
 				context.commit('myself', res.data.profile)
 			})

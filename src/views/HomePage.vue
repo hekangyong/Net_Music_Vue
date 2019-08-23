@@ -1,25 +1,35 @@
 <template>
   <div class="homepage">
     <div class="title">
-      <img v-lazy="userInfo.avatarUrl" :alt="userInfo.avatarUrl" class="userImg">
+      <div class="userimg">
+        <img v-lazy="userInfo.avatarUrl" :alt="userInfo.avatarUrl" class="userImg" />
+      </div>
+      <div class="usertext">
+        <h3>{{userinfo}}</h3>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "homepage",
+  created() {
+    this.homePageData;
+  },
   computed: {
+    ...mapActions(["homePageData"]),
     ...mapGetters({
       userInfo: "gethomepage"
     })
-  }
+  },
+  methods: {}
 };
 </script>
 <style lang="scss" scope>
 .homepage {
   padding: 100px 30px 100px;
-  .userImg{
+  .userImg {
     width: 250px;
     height: 250px;
   }

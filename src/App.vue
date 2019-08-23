@@ -78,7 +78,6 @@ body {
 .bottom {
   position: fixed;
   bottom: 0;
-  text-align: center;
 }
 #head {
   min-width: calc(100% - 398px);

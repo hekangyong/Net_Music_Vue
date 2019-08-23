@@ -44,6 +44,7 @@
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 import loading from "../components/loading";
 export default {
   name: "songlistdetail",
@@ -53,7 +54,7 @@ export default {
       playlist: [],
       userInfo: [],
       listId: null,
-      loading: true,
+      loading: true
     };
   },
   created() {
@@ -65,6 +66,7 @@ export default {
     this.getlistdetail();
   },
   methods: {
+    ...mapMutations(["startSong"]),
     getlistdetail() {
       let id = sessionStorage.getItem("songID");
       console.log(id);
@@ -113,19 +115,31 @@ export default {
           throw err;
         });
     },
-    songstartAll(){
+    songstartAll() {
       let dom = document.querySelectorAll(".songlistLink");
+      let audio = document.querySelector("#music-audio");
       const allSong = [];
       dom.forEach((val, key) => {
         const song = {
-          "title": val.children[0].children[0].textContent,
-          "songer": val.children[0].children[1].textContent,
-          "id": val.getAttribute('data-songlistid')
+          title: val.children[0].children[0].textContent,
+          songer: val.children[0].children[1].textContent,
+          id: val.getAttribute("data-songlistid")
         };
-        allSong.push(song)
-      })
-      console.log(allSong)
-      // ...mapActions([])
+        allSong.push(song);
+      });
+      console.log(allSong[0].id);
+      this.$req("song/url", { id: allSong[0].id })
+        .then(result => {
+          if (result.data.code === 200) {
+            // this.songsList = result.data;
+            let musicUrl = result.data.data[0].url;
+            audio.setAttribute("src", musicUrl);
+          }
+        })
+        .catch(err => {
+          throw err;
+        });
+      this.startSong(allSong);
     }
   },
   components: {
@@ -157,7 +171,7 @@ export default {
   .start_all {
     margin-left: 20px;
     cursor: pointer;
-    p{
+    p {
       font-size: 14px;
       color: #fff;
       background-color: #fb0036;
@@ -167,8 +181,8 @@ export default {
       letter-spacing: 0.5px;
       margin-top: 0px;
       margin-bottom: 0px;
-      transition: all .3s;
-      &:hover{
+      transition: all 0.3s;
+      &:hover {
         border: 1px solid #fb0036;
         background-color: transparent;
         color: #fb0036;
