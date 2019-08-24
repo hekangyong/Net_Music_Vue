@@ -103,17 +103,21 @@ export default {
       let songsId = val.getAttribute("data-songlistid");
       let musicUrl;
       let audio = document.querySelector("#music-audio");
-      this.$req("song/url", { id: songsId })
-        .then(result => {
-          if (result.data.code === 200) {
-            // this.songsList = result.data;
-            musicUrl = result.data.data[0].url;
-            audio.setAttribute("src", musicUrl);
-          }
-        })
-        .catch(err => {
-          throw err;
-        });
+      this.$req("check/music", { id: songsId }).then(result => {
+        this.$req("song/url", { id: songsId })
+          .then(result => {
+            if (result.data.code === 200) {
+              // this.songsList = result.data;
+              musicUrl = result.data.data[0].url;
+              audio.setAttribute("src", musicUrl);
+            }
+          })
+          .catch(err => {
+            throw err;
+          });
+      }).catch(err => {
+        alert('亲爱的~~放不了哟');
+      })
     },
     songstartAll() {
       let dom = document.querySelectorAll(".songlistLink");
@@ -128,16 +132,22 @@ export default {
         allSong.push(song);
       });
       console.log(allSong[0].id);
-      this.$req("song/url", { id: allSong[0].id })
+      this.$req("check/music", { id: allSong[0].id })
         .then(result => {
-          if (result.data.code === 200) {
-            // this.songsList = result.data;
-            let musicUrl = result.data.data[0].url;
-            audio.setAttribute("src", musicUrl);
-          }
+          this.$req("song/url", { id: allSong[0].id })
+            .then(result => {
+              if (result.data.code === 200) {
+                // this.songsList = result.data;
+                let musicUrl = result.data.data[0].url;
+                audio.setAttribute("src", musicUrl);
+              }
+            })
+            .catch(err => {
+              throw err;
+            });
         })
         .catch(err => {
-          throw err;
+          alert('亲爱的~~没有版权哟');
         });
       this.startSong(allSong);
     }

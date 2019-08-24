@@ -110,12 +110,12 @@ export default {
         float: right;
       }
     }
-    .listnull{
+    .listnull {
       color: #000;
       text-align: center;
       font-size: 16px;
       font-weight: 500;
-      letter-spacing: .5px
+      letter-spacing: 0.5px;
     }
     .song_ul {
       height: 400px;
@@ -123,6 +123,7 @@ export default {
       overflow-y: auto;
       margin-bottom: 0px;
       padding-left: 0px;
+      margin-top: 0;
       li {
         list-style: none;
         cursor: pointer;
@@ -132,6 +133,10 @@ export default {
           font-weight: 500;
           letter-spacing: 0.5px;
           color: #f31717;
+          width: 300px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
       }
     }
