@@ -106,7 +106,7 @@ export default {
       this.$req("check/music", { id: songsId }).then(result => {
         this.$req("song/url", { id: songsId })
           .then(result => {
-            if (result.data.code === 200) {
+              if (result.data.code === 200) {
               // this.songsList = result.data;
               musicUrl = result.data.data[0].url;
               audio.setAttribute("src", musicUrl);
